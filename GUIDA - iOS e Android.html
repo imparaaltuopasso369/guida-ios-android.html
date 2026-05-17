@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<title>Guida — Live Wallpapers iOS & Android</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    --sans:"IBM Plex Sans",system-ui,sans-serif;
+    --bg:#0a0b0f;
+    --panel:#13151b;
+    --panel2:#1a1d25;
+    --ink:#eef0f4;
+    --dim:rgba(238,240,244,.65);
+    --faint:rgba(238,240,244,.35);
+    --stroke:rgba(255,255,255,.10);
+    --accent:#7af2c1;
+    --warn:#ffb454;
+    --ios:#0a84ff;
+    --android:#3ddc84;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);min-height:100vh;line-height:1.55}
+  .wrap{max-width:880px;margin:0 auto;padding:56px 28px 96px}
+
+  .topline{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .topline::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  h1{font-weight:700;font-size:44px;letter-spacing:-.02em;margin:0 0 10px;line-height:1.08}
+  .lede{font-size:17px;color:var(--dim);max-width:62ch;margin:0 0 36px}
+
+  .toc{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:48px;
+  }
+  .toc a{
+    display:flex;align-items:center;gap:12px;
+    padding:14px 18px;border:1px solid var(--stroke);border-radius:12px;
+    background:var(--panel);color:var(--ink);text-decoration:none;
+    font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    transition:background .15s,border-color .15s,transform .1s;
+  }
+  .toc a:hover{background:var(--panel2);border-color:rgba(255,255,255,.22);transform:translateY(-1px)}
+  .toc a .num{font-size:18px;color:var(--accent);font-weight:600}
+  .toc a.ios .num{color:var(--ios)}
+  .toc a.android .num{color:var(--android)}
+
+  section{margin-bottom:64px}
+  h2{
+    font-weight:600;font-size:28px;letter-spacing:-.01em;margin:0 0 4px;
+    display:flex;align-items:center;gap:14px;
+  }
+  h2 .badge{
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    padding:5px 10px;border-radius:6px;font-weight:500;
+  }
+  h2.ios .badge{background:rgba(10,132,255,.16);color:#5fb1ff;border:1px solid rgba(10,132,255,.35)}
+  h2.android .badge{background:rgba(61,220,132,.14);color:var(--android);border:1px solid rgba(61,220,132,.35)}
+  h2.shared .badge{background:rgba(122,242,193,.14);color:var(--accent);border:1px solid rgba(122,242,193,.35)}
+  .sectsub{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin:6px 0 28px}
+
+  h3{
+    font-size:18px;font-weight:600;margin:32px 0 14px;
+    display:flex;align-items:center;gap:10px;
+  }
+  h3 .step{
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    background:var(--panel2);color:var(--dim);
+    padding:4px 9px;border-radius:6px;border:1px solid var(--stroke);
+    font-weight:500;
+  }
+
+  ol, ul{padding-left:0;list-style:none;margin:0 0 18px}
+  ol{counter-reset:step}
+  ol li{
+    counter-increment:step;
+    position:relative;padding:10px 0 10px 44px;
+    border-bottom:1px solid var(--stroke);
+  }
+  ol li:last-child{border-bottom:0}
+  ol li::before{
+    content:counter(step);
+    position:absolute;left:0;top:10px;
+    width:28px;height:28px;border-radius:8px;
+    background:var(--panel2);border:1px solid var(--stroke);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:12px;color:var(--ink);font-weight:500;
+  }
+  ul li{padding:6px 0 6px 22px;position:relative}
+  ul li::before{content:"›";position:absolute;left:0;color:var(--accent);font-weight:600}
+
+  code, .kbd{
+    font-family:var(--mono);font-size:12px;
+    background:var(--panel2);border:1px solid var(--stroke);
+    padding:1px 8px;border-radius:5px;color:var(--ink);
+    white-space:nowrap;
+  }
+  .path{color:var(--accent)}
+  .app{color:#ffd479;font-weight:500}
+
+  .callout{
+    background:var(--panel);border:1px solid var(--stroke);border-radius:12px;
+    padding:16px 20px;margin:18px 0;
+    display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:flex-start;
+  }
+  .callout .icon{
+    width:28px;height:28px;border-radius:7px;
+    display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;
+    background:rgba(122,242,193,.14);color:var(--accent);border:1px solid rgba(122,242,193,.32);
+  }
+  .callout.warn .icon{background:rgba(255,180,84,.14);color:var(--warn);border-color:rgba(255,180,84,.32)}
+  .callout.danger .icon{background:rgba(255,107,107,.14);color:#ff6b6b;border-color:rgba(255,107,107,.32)}
+  .callout h4{margin:0 0 4px;font-size:14px;font-weight:600}
+  .callout p{margin:0;color:var(--dim);font-size:14px}
+  .callout p + p{margin-top:6px}
+
+  .grid2{display:grid;grid-template-columns:repeat(2, 1fr);gap:16px;margin:22px 0}
+  .card{
+    background:var(--panel);border:1px solid var(--stroke);border-radius:12px;
+    padding:18px 20px;
+  }
+  .card .label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+  .card .val{font-size:15px;font-weight:500;color:var(--ink)}
+  .card .desc{font-size:13px;color:var(--dim);margin-top:6px}
+
+  .tldr{
+    background:linear-gradient(135deg, rgba(122,242,193,.06), rgba(122,242,193,.02));
+    border:1px solid rgba(122,242,193,.25);
+    border-radius:14px;padding:18px 22px;margin:0 0 40px;
+  }
+  .tldr .label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  .tldr p{margin:0;color:var(--ink);font-size:15px}
+  .tldr p + p{margin-top:8px;color:var(--dim);font-size:14px}
+
+  hr{border:0;border-top:1px solid var(--stroke);margin:48px 0}
+
+  .anchor{display:block;position:relative;top:-20px;visibility:hidden}
+
+  @media (max-width:640px){
+    h1{font-size:32px}
+    .toc{grid-template-columns:1fr}
+    .grid2{grid-template-columns:1fr}
+    .wrap{padding:36px 20px 64px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topline">Shader Wallpapers · Guida</div>
+  <h1>Come mettere i wallpaper sul telefono</h1>
+  <p class="lede">Guida precisa, passo per passo, per iOS e Android. Da MP4 a sfondo animato sulla lock screen / home in 5 minuti.</p>
+
+  <div class="tldr">
+    <div class="label">In 3 righe</div>
+    <p><b>1.</b> Apri <code>Wallpaper Recorder.html</code> al PC → genera gli MP4 (uno o più dei 10 shader).</p>
+    <p><b>2.</b> Trasferisci gli MP4 sul telefono (AirDrop / cavo USB / Drive / Telegram).</p>
+    <p><b>3.</b> iOS: converti in Live Photo con <span class="app">intoLive</span>, poi imposta come sfondo Lock. Android: usa <span class="app">Video Live Wallpaper</span>, set su Home + Lock.</p>
+  </div>
+
+  <div class="toc">
+    <a href="#prep" class="">
+      <span class="num">A</span>
+      <span>Preparare i video</span>
+    </a>
+    <a href="#transfer">
+      <span class="num">B</span>
+      <span>Trasferire al telefono</span>
+    </a>
+    <a href="#ios" class="ios">
+      <span class="num">iOS</span>
+      <span>Procedura iPhone</span>
+    </a>
+    <a href="#android" class="android">
+      <span class="num">AND</span>
+      <span>Procedura Android</span>
+    </a>
+  </div>
+
+  <!-- =================== A. PREPARARE =================== -->
+  <span class="anchor" id="prep"></span>
+  <section>
+    <h2 class="shared">A. Preparare i video <span class="badge">comune</span></h2>
+    <p class="sectsub">Step necessario per entrambi i sistemi</p>
+
+    <h3><span class="step">A1</span> Genera gli MP4</h3>
+    <ol>
+      <li>Apri <code>Wallpaper Recorder.html</code> in <b>Chrome</b>, <b>Edge</b>, <b>Firefox</b> (Windows) o <b>Safari</b> (Mac).</li>
+      <li>In alto, scegli la <b>risoluzione</b> giusta per il tuo telefono:
+        <div class="grid2" style="margin-top:12px">
+          <div class="card">
+            <div class="label">iPhone</div>
+            <div class="val">1170 × 2532</div>
+            <div class="desc">iPhone 13/14/15 standard & Pro. Per Pro Max scegli 1290 × 2796.</div>
+          </div>
+          <div class="card">
+            <div class="label">Android</div>
+            <div class="val">1080 × 2340</div>
+            <div class="desc">Default sicuro per quasi tutti. Pixel/Samsung Pro: 1440 × 3200.</div>
+          </div>
+        </div>
+      </li>
+      <li>Durata: <b>5 secondi</b>. FPS: <b>30</b>. Sono i valori di default e funzionano sempre.</li>
+      <li>Clicca <b>▶ Registra tutti i 10</b> (oppure "Registra" sulle singole card se ne vuoi solo alcuni).</li>
+      <li>Aspetta. Vedi un riquadro in alto a destra con l'anteprima della registrazione. Quando finisce, ogni card mostra un pulsante verde <b>⬇ Scarica .mp4</b>.</li>
+      <li>Clicca <b>⬇ Scarica</b> per ognuno. I file vanno nella tua cartella Download.</li>
+    </ol>
+
+    <div class="callout warn">
+      <div class="icon">!</div>
+      <div>
+        <h4>Se il browser dice "WebM" e non "MP4"</h4>
+        <p>Chrome/Firefox su Windows producono WebM. <b>Per Android va bene così</b>, leggi normalmente WebM. <b>Per iOS</b> devi convertirlo:</p>
+        <p>1. Vai su <code>cloudconvert.com/webm-to-mp4</code> (gratis, no registrazione)<br>
+        2. Trascina i file .webm → "Convert" → scarica gli .mp4</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== B. TRASFERIRE =================== -->
+  <span class="anchor" id="transfer"></span>
+  <section>
+    <h2 class="shared">B. Trasferire al telefono <span class="badge">comune</span></h2>
+    <p class="sectsub">Scegli il metodo più comodo per te</p>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="label">Veloce · iPhone + Mac</div>
+        <div class="val">AirDrop</div>
+        <div class="desc">Click destro sui file MP4 → Condividi → AirDrop → scegli iPhone. Si salvano nei <b>File</b> o nelle <b>Foto</b>.</div>
+      </div>
+      <div class="card">
+        <div class="label">Veloce · Android + PC</div>
+        <div class="val">Cavo USB</div>
+        <div class="desc">Collega il telefono → "Trasferimento file" → trascina gli MP4 in <code>/Download/</code> o <code>/Movies/</code>.</div>
+      </div>
+      <div class="card">
+        <div class="label">Universale</div>
+        <div class="val">Google Drive / iCloud</div>
+        <div class="desc">Carica i file dal PC → apri l'app sul telefono → "Salva sul dispositivo".</div>
+      </div>
+      <div class="card">
+        <div class="label">Universale</div>
+        <div class="val">Telegram / WhatsApp</div>
+        <div class="desc">Manda i file a te stesso (chat "Messaggi salvati"). Poi salva sul telefono dalla chat. <b>Importante:</b> usa "Invia come file", non "video", o perdi qualità.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- =================== iOS =================== -->
+  <span class="anchor" id="ios"></span>
+  <section>
+    <h2 class="ios">Procedura iPhone <span class="badge">iOS 17+</span></h2>
+    <p class="sectsub">iOS non legge HTML come wallpaper. Usa il sistema "Live Photo".</p>
+
+    <div class="callout">
+      <div class="icon">i</div>
+      <div>
+        <h4>Come funzionano i Live Wallpaper su iPhone</h4>
+        <p>Su iOS l'animazione parte <b>solo sulla Lock Screen</b>, e <b>solo quando tieni premuto il dito sullo schermo bloccato</b>. Sulla Home Screen rimane il primo frame, statico. È un limite di Apple, non c'è modo di aggirarlo.</p>
+      </div>
+    </div>
+
+    <h3><span class="step">iOS 1</span> Installa intoLive</h3>
+    <ol>
+      <li>Apri <b>App Store</b> sull'iPhone.</li>
+      <li>Cerca <span class="app">intoLive</span> (icona arancione con cerchio di puntini). Gratis.</li>
+      <li>Installa e aprila. Concedi accesso alle <b>Foto</b> quando lo chiede.</li>
+    </ol>
+
+    <h3><span class="step">iOS 2</span> Importa gli MP4 nelle Foto</h3>
+    <ol>
+      <li>I video sono già nell'app Foto se hai usato AirDrop. Se sono nei File (cartella <code>iCloud Drive</code> o <code>Sul mio iPhone</code>), aprili → tap <b>Condividi</b> → <b>Salva video</b>.</li>
+      <li>Verifica che i video siano visibili nell'app <b>Foto</b>, sezione <b>Album → Video</b>.</li>
+    </ol>
+
+    <h3><span class="step">iOS 3</span> Converti in Live Photo</h3>
+    <ol>
+      <li>Apri <span class="app">intoLive</span>.</li>
+      <li>Tap sul <b>video MP4</b> che vuoi usare.</li>
+      <li>Lascia tutti i parametri come sono (durata 5s, no trim). Tap <b>Make</b> in alto a destra.</li>
+      <li>Si apre un menu "Repeat". Scegli <b>No Repeat</b> (la versione gratis basta).</li>
+      <li>Tap <b>Save Live Photo</b>. Si salva nelle Foto come Live Photo.</li>
+    </ol>
+
+    <div class="callout warn">
+      <div class="icon">!</div>
+      <div>
+        <h4>Riconoscere una Live Photo</h4>
+        <p>Apri la foto: in alto a sinistra deve apparire l'icona <b>◎</b> ("LIVE"). Se non c'è, intoLive non ha completato la conversione — ripeti il passo 3 assicurandoti di cliccare <b>"Save Live Photo"</b> e non solo "Save".</p>
+      </div>
+    </div>
+
+    <h3><span class="step">iOS 4</span> Imposta come sfondo Lock Screen</h3>
+    <ol>
+      <li>Sblocca l'iPhone con Face ID, ma <b>resta sulla Lock Screen</b> (non andare alla Home).</li>
+      <li><b>Tieni premuto</b> per 1-2 secondi su un'area vuota della Lock Screen.</li>
+      <li>Appare la galleria sfondi. Tap su <b>"+"</b> in basso a destra.</li>
+      <li>Tap su <b>Foto</b>.</li>
+      <li>In alto, cambia il filtro da "Tutte" a <b>Live Photos</b>.</li>
+      <li>Seleziona la Live Photo che hai appena creato.</li>
+      <li>In <b>basso a sinistra</b> verifica che l'icona Live Photo (◎) sia <b>attiva</b> (non barrata). Se è barrata, toccala per attivarla.</li>
+      <li>In alto a destra tap <b>Aggiungi</b>.</li>
+      <li>Tap <b>Imposta come coppia di sfondi</b>.</li>
+    </ol>
+
+    <h3><span class="step">iOS 5</span> Provala</h3>
+    <ol>
+      <li>Blocca lo schermo (pulsante laterale).</li>
+      <li>Sveglia con il tap o l'alzata.</li>
+      <li><b>Tieni il dito premuto</b> sulla Lock Screen. L'animazione parte. ✓</li>
+    </ol>
+
+    <div class="callout danger">
+      <div class="icon">×</div>
+      <div>
+        <h4>Se non vedi le Live Photos in Sfondo → Foto</h4>
+        <p>1. Aggiorna iOS all'ultima versione (Impostazioni → Generali → Aggiornamento Software). iOS 16.0–16.3 aveva un bug che nascondeva le Live Photos.</p>
+        <p>2. Verifica che la foto sia davvero una Live Photo (vedi avviso sopra).</p>
+        <p>3. Riavvia l'iPhone.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- =================== ANDROID =================== -->
+  <span class="anchor" id="android"></span>
+  <section>
+    <h2 class="android">Procedura Android <span class="badge">Android 10+</span></h2>
+    <p class="sectsub">Più semplice di iOS — l'animazione parte sempre, Home + Lock.</p>
+
+    <div class="callout">
+      <div class="icon">i</div>
+      <div>
+        <h4>Vantaggio Android</h4>
+        <p>L'animazione gira <b>in continuo</b>, sia su Home che su Lock Screen, senza dover toccare lo schermo. Inoltre, alcune app permettono di mettere direttamente l'<b>HTML interattivo</b> come wallpaper — col tocco che fa interagire lo shader.</p>
+      </div>
+    </div>
+
+    <h3>Due strade — scegli una</h3>
+    <div class="grid2" style="margin-bottom:24px">
+      <div class="card">
+        <div class="label">Strada 1 — Più semplice</div>
+        <div class="val">MP4 come Live Wallpaper</div>
+        <div class="desc">Animazione che parte da sola. Nessuna interattività al tocco. <b>Consigliata.</b></div>
+      </div>
+      <div class="card">
+        <div class="label">Strada 2 — Più figa</div>
+        <div class="val">HTML interattivo</div>
+        <div class="desc">Lo shader risponde al dito. Più sbatti, e consuma più batteria.</div>
+      </div>
+    </div>
+
+    <h3><span class="step">AND 1A</span> Strada 1 · Installa Video Live Wallpaper</h3>
+    <ol>
+      <li>Apri il <b>Play Store</b>.</li>
+      <li>Cerca <span class="app">Video Live Wallpaper</span> (di Naing Group, gratis con pubblicità).
+        <br><span style="color:var(--faint);font-size:13px">Alternative gratuite: "Vid Live Wallpaper", "MP4 Live Wallpaper".</span>
+      </li>
+      <li>Installa. Concedi i permessi richiesti (lettura file).</li>
+    </ol>
+
+    <h3><span class="step">AND 2A</span> Strada 1 · Imposta lo sfondo</h3>
+    <ol>
+      <li>Apri <span class="app">Video Live Wallpaper</span>.</li>
+      <li>Tap <b>"Choose Video"</b> (o icona +).</li>
+      <li>Naviga fino al tuo MP4 (cartella <code>Download</code> o <code>Movies</code>).</li>
+      <li>Configura le opzioni:
+        <ul>
+          <li><b>Loop</b>: ON</li>
+          <li><b>Sound</b>: OFF (i nostri video sono silenziosi comunque)</li>
+          <li><b>Scale</b>: "Crop to fit" (riempie tutto lo schermo)</li>
+        </ul>
+      </li>
+      <li>Tap <b>"Set as Wallpaper"</b> in alto a destra.</li>
+      <li>Si apre il selettore di sistema. Scegli:
+        <ul>
+          <li><b>Home screen</b> — solo schermata principale</li>
+          <li><b>Lock screen</b> — solo schermata di blocco</li>
+          <li><b>Home and lock screen</b> — entrambe (consigliato)</li>
+        </ul>
+      </li>
+      <li>Conferma. Fatto. ✓</li>
+    </ol>
+
+    <h3><span class="step">AND 1B</span> Strada 2 · HTML interattivo (avanzata)</h3>
+    <ol>
+      <li>Copia uno dei file <code>.html</code> della cartella <code>wallpapers/</code> sul telefono (cartella <code>Download</code>).</li>
+      <li>Installa <span class="app">Web Page Live Wallpaper</span> dal Play Store (gratis).
+        <br><span style="color:var(--faint);font-size:13px">Alternative: "KLWP Live Wallpaper Maker" (più potente ma complessa).</span>
+      </li>
+      <li>Apri l'app → "Load from file" / "Local file" → seleziona l'HTML.</li>
+      <li>Attiva l'opzione <b>"Pass touch events"</b> se disponibile, così lo shader reagisce al dito.</li>
+      <li>Tap <b>"Set as Wallpaper"</b> → Home + Lock.</li>
+    </ol>
+
+    <div class="callout warn">
+      <div class="icon">!</div>
+      <div>
+        <h4>Batteria</h4>
+        <p>Sia i Live Wallpaper MP4 che gli HTML interattivi consumano più batteria di uno sfondo statico. Per ridurre: nella maggior parte delle app c'è un'opzione "Pause when battery low" — attivala. Disabilita anche "play on always-on display".</p>
+      </div>
+    </div>
+
+    <h3><span class="step">AND 3</span> Brand specifici — note</h3>
+    <div class="grid2">
+      <div class="card">
+        <div class="label">Samsung One UI</div>
+        <div class="val">Funziona</div>
+        <div class="desc">Tutte le app citate funzionano. Su Galaxy puoi anche usare "Galaxy Themes" per cercare wallpaper integrati, ma per gli HTML serve un'app esterna.</div>
+      </div>
+      <div class="card">
+        <div class="label">Google Pixel</div>
+        <div class="val">Funziona</div>
+        <div class="desc">Pixel 6+ supportano nativamente i Live Wallpaper. Compatibile al 100% con le app del Play Store.</div>
+      </div>
+      <div class="card">
+        <div class="label">Xiaomi MIUI / HyperOS</div>
+        <div class="val">Funziona con limiti</div>
+        <div class="desc">MIUI killa app in background aggressivamente. Vai in <b>Impostazioni → App → [app wallpaper] → Risparmio energetico → Nessuna restrizione</b>.</div>
+      </div>
+      <div class="card">
+        <div class="label">Huawei / Honor</div>
+        <div class="val">Funziona</div>
+        <div class="desc">Senza Google Play, scarica le APK da APKMirror. Stessi passi.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- =================== TROUBLESHOOTING =================== -->
+  <section>
+    <h2 class="shared">Problemi comuni <span class="badge">FAQ</span></h2>
+
+    <h3>iPhone — la Live Photo non si muove</h3>
+    <ul>
+      <li>Devi <b>tenere premuto</b> il dito sulla Lock Screen, non basta guardarla.</li>
+      <li>Verifica nell'app Foto che il file abbia l'icona ◎ in alto a sinistra.</li>
+      <li>Quando hai impostato lo sfondo, l'icona Live Photo nel selettore deve essere attiva (non barrata).</li>
+      <li>iOS 16.0–16.3 ha un bug noto. Aggiorna.</li>
+    </ul>
+
+    <h3>iPhone — Apple Photos rimuove l'effetto Live</h3>
+    <ul>
+      <li>iCloud Foto a volte ottimizza le Live Photo e perde l'animazione. Se succede: disattiva temporaneamente iCloud Foto, ricrea la Live Photo, impostala, riattiva iCloud.</li>
+    </ul>
+
+    <h3>Android — il video gira al rovescio o stretto</h3>
+    <ul>
+      <li>Hai scelto la risoluzione sbagliata nel Recorder. Genera di nuovo con quella orizzontale corretta del telefono.</li>
+      <li>Nell'app Video Live Wallpaper, prova diversi modi di "Scale" (Crop / Fit / Stretch).</li>
+    </ul>
+
+    <h3>Android — il wallpaper si pausa da solo</h3>
+    <ul>
+      <li>Il sistema sospende l'app per risparmio energetico. Vai in <b>Impostazioni → Batteria → App</b> e metti l'app wallpaper come "Non ottimizzata" / "Senza restrizioni".</li>
+    </ul>
+
+    <h3>Entrambi — il video è sgranato / blurrato</h3>
+    <ul>
+      <li>Hai usato una risoluzione troppo bassa. Rigenera a quella corretta del telefono (vedi tabella in alto).</li>
+      <li>Hai mandato il video via WhatsApp/Telegram come "video" invece che "file". Reinvialo come <b>documento/file</b>.</li>
+    </ul>
+
+  </section>
+
+  <div style="text-align:center;margin-top:48px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase">
+    fine guida · buon fidget
+  </div>
+</div>
+</body>
+</html>
